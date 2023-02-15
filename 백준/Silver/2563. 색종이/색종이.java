@@ -1,3 +1,5 @@
+
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,23 +24,38 @@ public class Main {
 			int width = 10; //도형의 크기는 10으로 고정
 			int height = 10;//도형의 크기는 10으로 고정
 			
+//			for(int j = x; j < x + 10; j++) {
+//				for(int k = y; k < y + 10; k++) {
+//					paper[j][k] = i;
+//				}
+//			}
 			for(int j = x; j < x + 10; j++) {
 				for(int k = y; k < y + 10; k++) {
-					paper[j][k] = i;
+					paper[j][k] = 1;
+				}
+			}
+			
+		}
+		
+		int count = 0;
+		for(int j = 0; j < 100; j++) {
+			for(int k = 0; k < 100; k++) {
+				if(paper[j][k] == 1) {
+					count += 1;
 				}
 			}
 		}
 		
-		int count = 0;
-		for(int i = 1; i <= N; i++) {
-			for(int j = 0; j < 100; j++) {
-				for(int k = 0; k < 100; k++) {
-					if(paper[j][k] == i) {
-						count += 1;
-					}
-				}
-			}
-		}
+//		int count = 0;
+//		for(int i = 1; i <= N; i++) {
+//			for(int j = 0; j < 100; j++) {
+//				for(int k = 0; k < 100; k++) {
+//					if(paper[j][k] == i) {
+//						count += 1;
+//					}
+//				}
+//			}
+//		}
 		System.out.println(count);
 		
 	}
