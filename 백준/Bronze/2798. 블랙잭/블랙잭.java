@@ -1,49 +1,47 @@
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Main {
-	static int[] inputs, numbers;
-	static int N; //N개의 숫자 중
+	static int N;
+	static int R;
 	static int M;
-	static int[] max;
-	static ArrayList<Integer> maxSum;
+	static int[] input;
+	static int[] numbers;
+	static int cnt;
+	static int sum;
+	static int max;
 	public static void main(String[] args) {
-		maxSum = new ArrayList<Integer>();
 		Scanner sc = new Scanner(System.in);
 		N = sc.nextInt();
 		M = sc.nextInt();
+		//R = sc.nextInt();
+		R = 3;
+		input = new int[N];
+		numbers = new int[R];
+		max = 0;
 		
-		inputs = new int[N];
-		numbers = new int[3];
-		
-		for(int i = 0; i < N; i++)
-			inputs[i] = sc.nextInt();
+		for(int i = 0; i < N; i++) input[i] = sc.nextInt();
 		
 		comb(0,0);
-		
-		int max = 0;
-		for(int i = 0; i < maxSum.size(); i++) {
-			if(max <= maxSum.get(i))
-				max = maxSum.get(i);
-		}
 		System.out.println(max);
-
 	}
 	private static void comb(int cnt, int start) {
-		 
-		if(cnt == 3) {
-			int sum = 0;
-			for(int i = 0; i < 3; i++)
-				sum += numbers[i];
-			if(sum <= M)
-				maxSum.add(sum);
+		// TODO Auto-generated method stub
+		if(cnt == R) {
+			sum = 0;
+			for(int i = 0; i < 3; i++) {
+				sum = sum + numbers[i];
+			}
+			if(sum > M) return;
+			max = Math.max(sum, max);
+			//System.out.print(Arrays.toString(numbers));
 			return;
 		}
 		
 		for(int i = start; i < N; i++) {
-			numbers[cnt] = inputs[i];
-			comb(cnt +1, i+1);
+			numbers[cnt] = input[i];
+			comb(cnt + 1, i  + 1);
 		}
 	}
+	
 }
