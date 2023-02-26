@@ -45,8 +45,8 @@ public class Solution {
 				// ex) 5개 중 3개 0, 2, 3인덱스면 200 + 300 + 1000
 				//System.out.print(input[i] + " ");
 				cal += calAndtaste[input[i]][1]; // N개의 재료
-				taste += calAndtaste[input[i]][0];
 				if(cal > L) return;
+				taste += calAndtaste[input[i]][0];
 			}
 			//System.out.print("칼로리의 합계: " + cal);
 			//System.out.print(" 맛의 합계: " + taste);
