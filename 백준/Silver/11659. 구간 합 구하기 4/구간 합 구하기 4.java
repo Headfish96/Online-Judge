@@ -3,7 +3,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -14,7 +13,7 @@ public class Main {
 		int M = Integer.parseInt(st.nextToken());
 		
 		int numbers[] = new int[N+1];
-		Arrays.fill(numbers, 0);
+		numbers[0] = 0;
 		st = new StringTokenizer(br.readLine(), " ");
 		for(int i = 1; i <= N; i++) {
 			numbers[i] = numbers[i-1] + Integer.parseInt(st.nextToken());
