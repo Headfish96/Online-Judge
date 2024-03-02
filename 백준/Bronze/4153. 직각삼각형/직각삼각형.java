@@ -1,35 +1,30 @@
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int temp = 0;
-		int[] xyz = new int[3];
-		
-		boolean flag = true;
-	
-		while(flag) {
-			for(int i = 0; i < 3; i++) {
-				temp = sc.nextInt();
-				xyz[i] = temp*temp;
-			}
-			if(xyz[2] == 0) {
-				flag = false;
-				break;
-			}
-			
-			Arrays.sort(xyz);
-			
-			if(xyz[2] == xyz[0] + xyz[1]) {
-				System.out.println("right");
-			}
-				
-			else if(xyz[2] != xyz[0] + xyz[1]) {
-				System.out.println("wrong");
-			}
-			
-			
-		}
-	}
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        boolean flag = true;
+        while(true){
+            int[] tri = new int[3];
+            for(int i = 0; i < 3; i++){
+                tri[i] = sc.nextInt();
+            }
+            Arrays.sort(tri);
+//            for(int i = 0; i < tri.length; i++){
+//                System.out.println(tri[i]);
+//            }
+            if( tri[0] == 0 && tri[1] == 0 && tri[2] == 0){
+//                System.out.println("종료");
+                break;
+            }
+            if(Math.pow((double)tri[2], 2) == (Math.pow((double)tri[0], 2) + Math.pow((double)tri[1], 2)) ){
+                System.out.println("right");
+            } else {
+                System.out.println("wrong");
+            }
+
+        }
+    }
 }
