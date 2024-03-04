@@ -1,38 +1,31 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Stack;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		Stack<Integer> stack = new Stack<>();
-		StringBuilder sb = new StringBuilder();
-		int N = Integer.parseInt(br.readLine());
-		for(int i = 0; i < N; i++) {
-			StringTokenizer st = new StringTokenizer(br.readLine());
-			String order = st.nextToken();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+        ArrayDeque<Integer> stack = new ArrayDeque<>();
+        StringBuilder sb = new StringBuilder();
 
-			if(order.equals("push")) {
-				stack.push(Integer.parseInt(st.nextToken()));
-			}
-			else if(order.equals("pop")) {
-				if(stack.isEmpty()) sb.append(-1 + "\n");
-				else sb.append(stack.pop() + "\n");
-			}
-			else if(order.equals("size")) sb.append(stack.size() + "\n");
-			
-			else if(order.equals("empty")) {
-				if(stack.isEmpty()) sb.append(1 + "\n");
-				else sb.append(0 + "\n");
-			}
-			else if(order.equals("top")) {
-				if(stack.isEmpty()) sb.append(-1 + "\n");
-				else sb.append(stack.peek() + "\n");
-			}
-		}
-		System.out.print(sb);
-		
-	}
+        for(int i = 0; i < N; i++){
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            String order = st.nextToken();
+            if ("push".equals(order)){
+                stack.push(Integer.parseInt(st.nextToken()));
+            } else if("pop".equals(order)){
+                sb.append(stack.isEmpty() ? -1 : stack.pop()).append('\n');
+            } else if ("size".equals(order)) {
+                sb.append(stack.size()).append('\n');
+            } else if ("empty".equals(order)) {
+                sb.append(stack.isEmpty() ? 1 : 0).append('\n');
+            } else {
+                sb.append(stack.isEmpty() ? -1 : stack.peek()).append('\n');
+           }
+        }
+
+        System.out.println(sb);
+    }
 }
