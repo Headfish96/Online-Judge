@@ -1,48 +1,85 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int[] A = new int[N];
-        for(int i = 0; i < N; i++){
-            A[i] = sc.nextInt();
-        }
-        Arrays.sort(A);
-
-        int M = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(isr);
         StringBuilder sb = new StringBuilder();
 
-        for(int i = 0; i < M; i++){
-            // 하나의 숫자에 대해서 lower_bound와 upper_bound를 구해서 차를 출력해야한다.
-            int key = sc.nextInt();
-            // lower_bound를 먼저 구한다.
-            int low_bottom = 0, up_bottom = 0; // 시작 bottom은 0인덱스
-            int low_top = N, up_top = N; // 시작 top은 N인덱스
+        Scanner sc = new Scanner(System.in);
 
-            while (low_bottom != low_top){ //bottom과 top 두 인덱스가 같아질때까지 반복
-                int low_mid = (low_bottom + low_top) / 2; // 두 인덱스의 중간 인덱스
-                if(key <= A[low_mid]) { // 찾고자하는 수가 중간 인덱스의 값보다 작을때, 즉, key < A[mid] < A[top]일때
-                    low_top = low_mid; // lower_bound를 구하기 위한 것이니, top을 mid로 줄인다.
-                }
-                else if (key > A[low_mid]){ // 찾고자하는 수가 중간 인덱스의 값보다 클때, 즉, A[bottom] < A[mid] < key
-                    low_bottom = low_mid + 1;
-                }
-            }
+        int N = Integer.parseInt(br.readLine());
+        int[] card = new int[N];
 
-            // 그 다음 uppper_bound를 구한다.
-            while (up_bottom != up_top){
-                int up_mid = (up_bottom + up_top) / 2;
-                if(key < A[up_mid]) { // 찾고자하는 수가 중간 인덱스의 값보다 작을때, 즉, key < A[mid] < A[top]일때
-                    up_top = up_mid;// upper_bound를 구하기 위한 것이니, top을 mid로 줄인다.
-                }
-                else if(key >= A[up_mid]) { // 찾고자하는 수가 중간 인덱스의 값보다 클때, 즉, A[bottom] < A[mid] < key
-                    up_bottom = up_mid + 1;// up_bottom을 mid+1로 늘려준다.
-                }
-            }
-            sb.append(up_top - low_bottom).append(' ');
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        for(int i = 0; i < card.length; i++){
+            card[i] = Integer.parseInt(st.nextToken());
+        }
+        Arrays.sort(card);
+
+        int M = Integer.parseInt(br.readLine());
+        int[] key = new int[M];
+
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0; i < key.length; i++){
+            key[i] = Integer.parseInt(st.nextToken());
+        }
+
+        for(int i = 0; i < key.length; i++){
+            int lowerBound = Lower(card, key[i]);
+            int upperBound = Upper(card, key[i]);
+//            System.out.println(upperBound - lowerBound);
+            sb.append(upperBound - lowerBound).append(" ");
         }
         System.out.println(sb);
+    }
+
+    public static int Lower(int[] card, int key){
+        int low = 0;
+        int high = card.length;
+
+        while (low < high){
+            int mid = (low + high) / 2;
+
+            // key 값이 중간값보다 작거나 같다면
+            if(key <= card[mid]){
+                // 상한 값을 낮춘다.
+                // lower bound를 구하는 과정이기에 key 값과 중간값이 같아도 상한 값을 낮춘다.
+                high = mid;
+            }
+            // key 값이 중간값보다 크다면
+            else {
+                // 하한 값을 올린다.
+                low = mid + 1;
+            }
+        }
+        return low;
+    }
+
+    public static int Upper(int[] card, int key){
+        int low = 0;
+        int high = card.length;
+
+        while (low < high){
+            int mid = (low + high) / 2;
+
+            // key 값이 중간값보다 작거나 같다면
+            if(key < card[mid]){
+                // 상한 값을 낮춘다.
+                high = mid;
+            }
+            // key 값이 중간값보다 크다면
+            else {
+                // 하한 값을 올린다.
+                // upper bound를 구하는 과정이기에 key 값과 중간값이 같아도 하한 값을 올린다.
+                low = mid + 1;
+            }
+        }
+        return high;
     }
 }
