@@ -1,49 +1,55 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-	public static void main(String[] args) {
-		LinkedList<Integer> deque = new LinkedList<>();
-		Deque<Integer> q = new ArrayDeque<>();
-		Scanner sc = new Scanner(System.in);
-		StringBuilder sb = new StringBuilder();
-		int N = sc.nextInt();
-		for(int i = 0; i < N; i++) {
-			String order = sc.next();
-			if(order.equals("push_front")) {
-				int a = sc.nextInt();
-				deque.addFirst(a);
-			}
-			else if(order.equals("push_back")) {
-				int a = sc.nextInt();
-				deque.add(a);
-			}
-			else if(order.equals("pop_front")) {
-				if(deque.isEmpty())sb.append(-1).append('\n');
-				else sb.append(deque.pop()).append('\n');
-			}
-			else if(order.equals("pop_back")) {
-				if(deque.isEmpty())sb.append(-1).append('\n');
-				else sb.append(deque.pollLast()).append('\n');
-			}
-			else if(order.equals("size")) {
-				sb.append(deque.size()).append('\n');
-			}
-			else if(order.equals("empty")) {
-				if(deque.isEmpty())sb.append(1).append('\n');
-				else sb.append(0).append('\n');
-			}
-			else if(order.equals("front")) {
-				if(deque.isEmpty())sb.append(-1).append('\n');
-				else sb.append(deque.peek()).append('\n');
-			}
-			else if(order.equals("back")) {
-				if(deque.isEmpty())sb.append(-1).append('\n');
-				else sb.append(deque.peekLast()).append('\n');
-			}
-		}
-		System.out.println(sb);
-	}
+    public static void main(String[] args) throws IOException {
+//        System.out.println("helloworld");
+        InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(isr);
+        StringBuilder sb = new StringBuilder();
+
+        Deque<Integer> deque = new ArrayDeque<>();
+
+        int N = Integer.parseInt(br.readLine());
+        for(int i = 0; i < N; i++){
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            String order = st.nextToken();
+            switch (order) {
+                case "push_front" :
+                    deque.addFirst(Integer.parseInt(st.nextToken()));
+                    break;
+                case "push_back" :
+                    deque.addLast(Integer.parseInt(st.nextToken()));
+                    break;
+                case "pop_front" :
+                    if (deque.isEmpty()) sb.append(-1).append("\n");
+                    else sb.append(deque.pollFirst()).append("\n");
+                    break;
+                case "pop_back" :
+                    if (deque.isEmpty()) sb.append(-1).append("\n");
+                    else sb.append(deque.pollLast()).append("\n");
+                    break;
+                case "size" :
+                    sb.append(deque.size()).append("\n");
+                    break;
+                case "empty" :
+                    if(deque.isEmpty()) sb.append(1).append("\n");
+                    else sb.append(0).append("\n");
+                    break;
+                case "front" :
+                    if(deque.isEmpty()) sb.append(-1).append("\n");
+                    else sb.append(deque.peekFirst()).append("\n");
+                    break;
+                case "back" :
+                    if(deque.isEmpty()) sb.append(-1).append("\n");
+                    else sb.append(deque.peekLast()).append("\n");
+                    break;
+            }
+        }
+        System.out.println(sb);
+    }
 }
