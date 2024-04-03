@@ -1,46 +1,51 @@
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayDeque;
+import java.util.Queue;
+import java.util.Stack;
 
 public class Main {
-    public static void main(String[] args) {
-//        System.out.println("hello world");
+    public static void main(String[] args) throws IOException {
+        InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(isr);
+        StringBuilder sb = new StringBuilder();
+        Stack<Integer> showStack = new Stack<>();
+        Stack<Integer> saveStack = new Stack<>();
+        Queue<Character> printChar = new ArrayDeque<>();
 
-        Stack<Integer> stack = new Stack<>();
-        Queue<String> pm = new ArrayDeque<>();
+        int n = Integer.parseInt(br.readLine()); // n까지의 수
+        for(int i = n; i >= 1; i--) saveStack.push(i);
 
-        Scanner sc = new Scanner(System.in);
-
-        int n = sc.nextInt();
-        int[] numbers = new int[n];
-
+        boolean check = true;
         for(int i = 0; i < n; i++){
-            numbers[i] = sc.nextInt();
+            boolean flag = true;
+            int x = Integer.parseInt(br.readLine());
+            while (flag){
+                if(showStack.isEmpty()){
+                    showStack.push(saveStack.pop());
+                    printChar.add('+');
+//                    System.out.println("+");
+                } else {
+                    if(showStack.peek() < x){
+                        showStack.push(saveStack.pop());
+                        printChar.add('+');
+//                        System.out.println("+");
+                    } else if (showStack.peek() == x) {
+                        showStack.pop();
+                        printChar.add('-');
+//                        System.out.println("-");
+                        break;
+                    } else {
+                        System.out.println("NO");
+                        check = false;
+                        flag = false;
+                    }
+                }
+                if(showStack.isEmpty() && saveStack.isEmpty()) flag = false;
+            }
+            if(!flag) break;
         }
-
-        int count = 0;
-        int num = 1;
-        while (count != n && num <= n+1) {
-            if(stack.isEmpty()){
-                stack.add(num);
-                pm.add("+");
-                num++;
-            }
-            else if(!stack.isEmpty() && stack.peek() == numbers[count]){
-                stack.pop();
-                pm.add("-");
-                count++;
-            }
-            else if(!stack.isEmpty() && stack.peek() != numbers[count]){
-                stack.add(num);
-                pm.add("+");
-                num++;
-            }
-        }
-        if(!stack.isEmpty()){
-            System.out.println("NO");
-        } else {
-            while (!pm.isEmpty()){
-                System.out.println(pm.poll());
-            }
-        }
+        if(check) while (!printChar.isEmpty()) System.out.println(printChar.poll());
     }
 }
