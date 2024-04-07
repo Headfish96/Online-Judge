@@ -30,6 +30,7 @@ public class Main {
             }
         });
 
-        for(int i = 0; i < array.size(); i++) System.out.println(array.get(i)[0] + " " + array.get(i)[1]);
+        for(int i = 0; i < array.size(); i++) sb.append(array.get(i)[0]).append(" ").append(array.get(i)[1]).append("\n");
+        System.out.println(sb);
     }
 }
