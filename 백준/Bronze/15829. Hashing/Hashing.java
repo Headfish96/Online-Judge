@@ -8,13 +8,13 @@ public class Main {
         BufferedReader br = new BufferedReader(isr);
         int L = Integer.parseInt(br.readLine());
         String str = br.readLine();
-        int r = 31;
         int M = 1234567891;
-        int[] word = new int[L];
-        int H = 0;
+        long H = 0;
+        long R = 1;
         for(int i = 0; i < L; i++){
-            word[i] = (int)str.charAt(i) - 96;
-            H += word[i]*Math.pow(31, i);
+            R = R % M;
+            H += (((int)str.charAt(i) - 96) % M) * (R % M) ;
+            R *= 31;
         }
         H = H % M;
         System.out.println(H);
