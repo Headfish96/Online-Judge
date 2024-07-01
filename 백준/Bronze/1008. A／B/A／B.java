@@ -1,10 +1,16 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		double A = sc.nextDouble();
-		double B = sc.nextDouble();
-		System.out.println(A / B);
-	}
+    public static void main(String[] args) throws IOException {
+        InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(isr);
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        double A = Integer.parseInt(st.nextToken());
+        double B = Integer.parseInt(st.nextToken());
+        System.out.println(A/B);
+    }
 }
