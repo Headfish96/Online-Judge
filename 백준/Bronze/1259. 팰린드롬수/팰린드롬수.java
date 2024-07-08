@@ -1,26 +1,36 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    static StringTokenizer st;
-    static StringBuilder sb = new StringBuilder("");
+    public static void main(String[] args) throws IOException {
+        InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(isr);
 
-    private static boolean isPalind(String str) {
-        for(int i=0; i<=str.length()/2; i++){
-            if(str.charAt(i) != str.charAt(str.length()-1-i))
-                return false;
-        }
-        return true;
-    }
+        while (true){
+            String p = br.readLine();
 
-    public static void main(String[] args) throws IOException{
-        while(true){
-            String str = br.readLine();
-            if(str.equals("0")) break;
-            if(isPalind(str)) sb.append("yes").append('\n');
-            else sb.append("no").append('\n');
+            int pelin = Integer.parseInt(p);
+            if(pelin == 0) break;
+            int[] arr = new int[p.length()];
+            for(int i = 0; i < arr.length; i++){
+                arr[i] = pelin / (int) Math.pow(10,arr.length-i-1);
+                pelin = pelin % (int) Math.pow(10,arr.length-i-1);
+            }
+
+            boolean flag = true;
+            for(int i = 0; i < arr.length/2; i++){
+                if(arr[i] == arr[arr.length - i - 1]){
+                    flag = true;
+                }
+                else {
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag == true) System.out.println("yes");
+            else System.out.println("no");
         }
-        System.out.print(sb.toString());
     }
 }
