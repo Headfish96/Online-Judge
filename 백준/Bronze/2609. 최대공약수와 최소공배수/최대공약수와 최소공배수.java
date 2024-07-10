@@ -1,44 +1,37 @@
-
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int N = sc.nextInt();
-		int[] arrN = new int[N];
-		int M = sc.nextInt();
-		int[] arrM = new int[M];
-		int countN = 0;
-		int countM = 0;
-		int max = 0;
-		for(int i = 1; i <= N; i++) {
-			if((N%i) == 0) {
-				arrN[countN] = i;
-				countN++;
-			}
-		}
-//		for(int i = 0; i < countN; i++) {
-//			System.out.println(arrN[i]);
-//		}
-		for(int i = 1; i <= M; i++) {
-			if((M%i) == 0) {
-				arrM[countM] = i;
-				countM++;
-			}
-		}
-		
-		for(int i = 0; i < N; i++) {
-			for(int j = 0; j < M; j++) {
-				if(arrN[i] == arrM[j]) {
-					max = Math.max(max, arrN[i]);
-				}
-			}
-		}
-		
-		System.out.println(max);
-		
-		int maxx = N*M/max;
-		
-		System.out.println(maxx);
-	}
+    public static void main(String[] args) throws IOException {
+        InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(isr);
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int a = Integer.parseInt(st.nextToken());
+        int b = Integer.parseInt(st.nextToken());
+
+        int max = Math.max(a, b);
+        int min = Math.min(a, b);
+
+        int LCM = 0; // 최소공배수
+        int GCD = 0; // 최대공약수
+
+        for(int i = min; i >= 1; i--){
+            if(a % i == 0 && b % i == 0){
+                GCD = i;
+                break;
+            }
+        }
+
+        for(int i = max; i <= Integer.MAX_VALUE; i++){
+            if(i % a == 0 && i % b == 0){
+                LCM = i;
+                break;
+            }
+        }
+        System.out.println(GCD);
+        System.out.println(LCM);
+    }
 }
